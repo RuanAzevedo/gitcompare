@@ -12,5 +12,6 @@ injectGlobal`
     background: #9B65E5;
     text-rendering: optimizeLegibility !important;
     -webkit-font-smoothing: antialiased !important;
+    font-family: sans-serif;
   }
 `;
