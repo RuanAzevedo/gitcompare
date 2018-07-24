@@ -10,6 +10,7 @@ import CompareList from '../../components/CompareList';
 export default class Main extends Component {
 
     state = {
+        repositoryError: false,
         repositoryInput: '',
         repositories: []
     };
@@ -18,18 +19,19 @@ export default class Main extends Component {
         e.preventDefault();
 
         try {
-            const { data: repository } = await api.get(`/repos/${this.state.repositoryInput}`);
+            const {data: repository} = await api.get(`/repos/${this.state.repositoryInput}`);
 
             repository.lastCommit = moment(repository.pushed_at).fromNow();
 
 
             this.setState({
                 repositoryInput: '',
-                repositories: [...this.state.repositories, repository]
+                repositories: [...this.state.repositories, repository],
+                repositoryError: false,
             });
 
         } catch (err) {
-
+            this.setState({repositoryError: true});
         }
     };
 
@@ -37,7 +39,7 @@ export default class Main extends Component {
         return (
             <Container>
                 <img src={logo} alt="Github Compare"/>
-                <Form onSubmit={this.handleAddRepository}>
+                <Form withError={this.state.repositoryError} onSubmit={this.handleAddRepository}>
                     <input
                         type="text"
                         placeholder="usuário/repositório"

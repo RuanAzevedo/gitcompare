@@ -17,12 +17,13 @@ export const Form = styled.form`
     flex: 1;
     height: 55px;
     background: #FFF;
-    border: 0;
     font-size: 18px;
     color: #444;
     border-radius: 3px;
     padding: 5px;
     text-indent: 5px;
+    
+    border: ${props => (props.withError ? '2px solid #F00' : 0)};
   }
   
   button {
